@@ -119,7 +119,6 @@ const child_process_1 = __webpack_require__(129);
 const process_1 = __webpack_require__(765);
 const asyncExec = util_1.default.promisify(child_process_1.exec);
 const certificateFileName = process_1.env['TEMP'] + '\\certificate.pfx';
-const timestampUrl = 'http://timestamp.verisign.com/scripts/timstamp.dll';
 const signtool = 'C:/Program Files (x86)/Windows Kits/10/bin/10.0.17763.0/x86/signtool.exe';
 const signtoolFileExtensions = [
     '.dll', '.exe', '.sys', '.vxd',
@@ -165,6 +164,10 @@ async function addCertificateToStore() {
 async function signWithSigntool(fileName) {
     try {
         var vitalParameterIncluded = false;
+        var timestampUrl : string = core.getInput('timestampUrl');
+        if (timestampUrl === '') {
+          timestampUrl = 'http://timestamp.verisign.com/scripts/timstamp.dll'; // 'http://timestamp.digicert.com';//
+        }
         var command = `"${signtool}" sign /sm /t ${timestampUrl}`;
         const sha1 = core.getInput('certificatesha1');
         if (sha1 != '') {
