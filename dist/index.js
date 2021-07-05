@@ -164,7 +164,7 @@ async function addCertificateToStore() {
 async function signWithSigntool(fileName) {
     try {
         var vitalParameterIncluded = false;
-        var timestampUrl : string = core.getInput('timestampUrl');
+        var timestampUrl = core.getInput('timestampUrl');
         if (timestampUrl === '') {
           timestampUrl = 'http://timestamp.digicert.com'; // 'http://timestamp.digicert.com';//
         }
